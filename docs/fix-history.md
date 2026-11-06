@@ -14,9 +14,10 @@ Device: Xiaomi Redmi Pad (yunluo). Target: unofficial LineageOS 24.0 / Android 1
 | device/xiaomi/yunluo/BoardConfig.mk | Missing vendor/lineage/config/device_framework_matrix.xml | Remove absent matrix reference, retain MediaTek/Xiaomi matrices |
 | device/xiaomi/yunluo/device.mk | Soong select on charging_control_supports_bypass expects bool but receives string | Use soong_config_set_bool(...,false) |
 | device/xiaomi/yunluo/device.mk | Make reports android.hardware.power-service.pixel-libperfmgr as missing | Add hardware/google/pixel/power-libperfmgr to PRODUCT_SOONG_NAMESPACES; retain the power service |
+| device/xiaomi/yunluo/Android.mk | Make/Kati overriding commands for vendor/lib64/libmnl.so, already installed by Soong | Remove duplicate $(TARGET_OUT_VENDOR)/lib64/libmnl.so entry from VENDOR_PLATFORM_LINKS, preserve Soong installation |
 | local_manifests/mt6789.xml | Old manifest referenced original developers / lineage-22.0 | Point device/vendor/MediaTek repos to hashyofficial/main and Xiaomi hardware to LineageOS/lineage-24.0 |
 
-The five source-file transformations (device tree, vendor, hardware) are replayable with scripts/apply-known-fixes.py. The manifest is maintained in a separate repository and should be obtained from hashyofficial/local_manifests before syncing.
+The six source-file transformations (device tree, vendor, hardware) are replayable with scripts/apply-known-fixes.py. The manifest is maintained in a separate repository and should be obtained from hashyofficial/local_manifests before syncing.
 
 ## Milestones confirmed during local compilation
 
