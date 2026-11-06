@@ -98,9 +98,28 @@ def patch_device_mk(content):
     return content
 
 
+def patch_device_android_mk(content):
+    # A real Soong-installed libmnl.so occupies the same output location;
+    # do not also generate a platform symlink at that path.
+    name = "$(TARGET_OUT_VENDOR)/lib64/libmnl.so"
+    rows = content.splitlines(keepends=True)
+    matched = [line for line in rows if line.lstrip().startswith(name)]
+    if len(matched) > 1:
+        raise LayoutError("duplicate libmnl link entries in Android.mk")
+    if matched:
+        if not any("VENDOR_PLATFORM_LINKS" in line for line in rows):
+            raise LayoutError("vendor symlink list missing")
+        rows.remove(matched[0])
+        return "".join(rows)
+    if name in content:
+        raise LayoutError("libmnl reference in unexpected location")
+    return content
+
+
 FIXES = {
     "hardware/mediatek/Android.bp": patch_hardware,
     "device/xiaomi/yunluo/BoardConfig.mk": patch_boardconfig,
+    "device/xiaomi/yunluo/Android.mk": patch_device_android_mk,
     "device/xiaomi/yunluo/device.mk": patch_device_mk,
     "vendor/xiaomi/yunluo/Android.bp": patch_vendor_bp,
     "vendor/xiaomi/yunluo/yunluo-vendor.mk": patch_vendor_mk,
