@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LineageOS 24.0 yunluo bring-up using hashyofficial source repositories. -->
+<manifest>
+    <remote name="hashyofficial" fetch="https://github.com/hashyofficial" revision="main" />
+    <remote name="lineageos" fetch="https://github.com/LineageOS" revision="lineage-24.0" />
+
+    <!-- Device tree and prebuilt kernel -->
+    <project path="device/xiaomi/yunluo" name="android_device_xiaomi_yunluo" remote="hashyofficial" />
+    <project path="device/xiaomi/yunluo-kernel" name="android_device_xiaomi_yunluo-kernel" remote="hashyofficial" />
+
+    <!-- MediaTek vendor SELinux policies -->
+    <remove-project name="android_device_mediatek_sepolicy_vndr" optional="true" />
+    <project path="device/mediatek/sepolicy_vndr" name="android_device_mediatek_sepolicy_vndr" remote="hashyofficial" />
+
+    <!-- Hardware dependencies -->
+    <project path="hardware/mediatek" name="android_hardware_mediatek" remote="hashyofficial" />
+    <project path="hardware/xiaomi" name="android_hardware_xiaomi" remote="lineageos" />
+
+    <!-- Proprietary vendor blobs -->
+    <project path="vendor/xiaomi/yunluo" name="android_vendor_xiaomi_yunluo" remote="hashyofficial" />
+</manifest>
