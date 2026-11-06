@@ -23,7 +23,8 @@ This repository is a **reproducible backup/checklist** of the fixes, not a separ
 4. Remove absent vendor/lineage/config/device_framework_matrix.xml from the device framework matrix list.
 5. Declare lineage_health.charging_control_supports_bypass using soong_config_set_bool, not a string setter.
 6. Export hardware/google/pixel/power-libperfmgr through PRODUCT_SOONG_NAMESPACES so the existing Pixel power HAL resolves.
-7. Use a local manifest pointing to hashyofficial sources on main and LineageOS hardware/xiaomi on lineage-24.0.
+7. Avoid the vendor/lib64/libmnl.so duplicate install rule by removing its VENDOR_PLATFORM_LINKS symlink entry in device/xiaomi/yunluo/Android.mk. Keep the actual Soong-installed module.
+8. Use a local manifest pointing to hashyofficial sources on main and LineageOS hardware/xiaomi on lineage-24.0.
 
 See [fix history](docs/fix-history.md) for failures, locations, and scope.
 
